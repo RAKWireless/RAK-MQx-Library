@@ -1,5 +1,5 @@
-| <center><img src="./assets/rakstar.jpg" alt="RAKstar" width=25%></center>  | ![RAKWireless](./assets/RAK-Whirls.png) | [![Build Status](https://github.com/RAKWireless/RAK-MQx-Library/workflows/RAK%20Library%20Build%20CI/badge.svg)](https://github.com/RAKWireless/RAK-MQx-Library/actions) |
-| -- | -- | -- |
+| <center><img src="./assets/rakstar.jpg" alt="RAKstar" width=25%></center>  | ![RAKWireless](./assets/RAK-Whirls.png) | [![Build Status](https://github.com/RAKWireless/RAK-MQx-Library/workflows/RAK%20Library%20Build%20CI/badge.svg)](https://github.com/RAKWireless/RAK-MQx-Library/actions) | <center><img src="./assets/RAK12004.jpg" alt="RAK12004" width=25%></center> |
+| -- | -- | -- | -- |
 
 # RAK MQx sensor modules
 
