@@ -1,0 +1,58 @@
+#######################################
+# Syntax Coloring Map For LINBus
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ADC121C021	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin			KEYWORD2    
+readConfigRegister		KEYWORD2
+readAlertStatus		KEYWORD2
+readAlertLowStatus		KEYWORD2
+readAlertHighStatus	KEYWORD2
+clearAlertStatus		KEYWORD2
+configCycleTime		KEYWORD2
+readCycleTime		KEYWORD2
+configAlertHold		KEYWORD2
+readAlertHold		KEYWORD2
+configAlertFlag		KEYWORD2
+readAlertFlag		KEYWORD2
+configAlertPin		KEYWORD2
+readAlertPin		KEYWORD2
+configPolarity		KEYWORD2
+readPolarity		KEYWORD2
+setAlertLowThreshold	KEYWORD2
+readAlertLowThreshold	KEYWORD2
+setAlertHighThreshold	KEYWORD2
+setHysteresis		KEYWORD2
+readHysteresis		KEYWORD2
+readLowestConversion	KEYWORD2
+clearLowestConversion	KEYWORD2
+readHighestConversion	KEYWORD2
+getAdcValue		KEYWORD2
+ //----------------------------MQx ----------------------------------------------------------
+setVoltageResolution	KEYWORD2
+getVoltageResolution	KEYWORD2          
+setR0			KEYWORD2
+getR0			KEYWORD2
+setRL			KEYWORD2
+getRL			KEYWORD2
+setA			KEYWORD2
+getA			KEYWORD2
+setB			KEYWORD2
+getB			KEYWORD2
+getSensorVoltage		KEYWORD2
+calibrateR0		KEYWORD2
+setRegressionMethod	KEYWORD2
+getRegressionMethod	KEYWORD2
+readSensor		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
