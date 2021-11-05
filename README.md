@@ -8,11 +8,15 @@ This library provides easy to use functions to setup the RAKwireless MQx sensor 
 The ADC121C021 is a low-power, monolithic, 12-bit, analog-to-digital converter. The device features an I2C compatible serial interface. The ADC121C021's Alert feature provides an interrupt that is activated when the analog input violates a programmable upper or lower limit value.
 This library provides basic support for the ADC121C021 ADC.    
 
+* **[WisBlock MQ2 Gas Sensor RAK12004](https://store.rakwireless.com/products/mq2-gas-sensor-module-rak12004)**
+* **[WisBlock CO2 Gas Sensor RAK12008](https://store.rakwireless.com/products/mq2-gas-sensor-module-rak12004)**
+* **[WisBlock Gas Sensor RAK12009](https://store.rakwireless.com/products/mq2-gas-sensor-module-rak12004)**
+
 # Documentation
 
-* [*RAKwireless RAK12004 Gas sensor*](https://docs.rakwireless.com/Product-Categories/WisBlock/#wisblock-io)
-* [*RAKwireless RAK12008 CO2 Gas sensor (coming soon)*](https://docs.rakwireless.com/Product-Categories/WisBlock/#wisblock-io)
-* [*RAKwireless RAK12009 Gas sensor (coming soon)*](https://docs.rakwireless.com/Product-Categories/WisBlock/#wisblock-io)
+* [*RAKwireless RAK12004 Gas sensor*](https://docs.rakwireless.com/Product-Categories/WisBlock/RAK12004/Overview/)
+* [*RAKwireless RAK12008 CO2 Gas sensor (coming soon)*](https://docs.rakwireless.com/Product-Categories/WisBlock/RAK12008/Overview/)
+* [*RAKwireless RAK12009 Gas sensor (coming soon)*](https://docs.rakwireless.com/Product-Categories/WisBlock/RAK12009/Overview/)
 * [Library Repository](https://github.com/RAKWireless/RAK-MQx-Library) - Product repository for the MQx Sensor Modules.
 
 # Installation
