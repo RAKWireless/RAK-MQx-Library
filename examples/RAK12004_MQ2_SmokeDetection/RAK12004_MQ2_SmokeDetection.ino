@@ -6,17 +6,27 @@
  * @date 2021-05-08
  * @copyright Copyright (c) 2021
  */
-
 #include <Wire.h>
 #include "ADC121C021.h"
 #include <U8g2lib.h> // Click to install library: http://librarymanager/All#u8g2
 
-#define PWM_FOSC 16000000 //
 #define BUZZER_CONTROL WB_IO1
 //Slot A: WB_IO1 17
 //Slot B: WB_IO2 34
 //Slot C: WB_IO3 21
 //Slot D: WB_IO5 9
+
+#if defined(_VARIANT_RAK4630_)
+  #define PWM_FOSC 16000000 //
+#elif defined(_VARIANT_RAK11300_) 
+#else 
+   // use first channel of 16 channels (started from zero)
+  #define LEDC_CHANNEL_0  0
+  // use 13 bit precission for LEDC timer
+  #define LEDC_TIMER_13_BIT  13
+  // use 4000 Hz as a LEDC base frequency
+  #define LEDC_BASE_FREQ     4000               
+#endif
 
 #define EN_PIN WB_IO6	 //Logic high enables the device. Logic low disables the device
 #define ALERT_PIN WB_IO5 //a high indicates that the respective limit has been violated.
@@ -35,14 +45,13 @@ char displayData[32]; //OLED dispaly datas
 void firstDisplay();
 void buzzer_init();
 void buzzer(unsigned long freq);
+void stop_buzzer();
 void setup()
 {
 	pinMode(ALERT_PIN, INPUT);
 	pinMode(EN_PIN, OUTPUT);
 	digitalWrite(EN_PIN, HIGH); //power on RAK12004
 	delay(500);
-	buzzer_init();
-
 	time_t timeout = millis();
 	Serial.begin(115200);
 	while (!Serial)
@@ -56,6 +65,7 @@ void setup()
 			break;
 		}
 	}
+  buzzer_init();
 	//***********OLED display init *****************************************
 	u8g2.begin();
 	u8g2.clearDisplay();
@@ -146,9 +156,8 @@ void loop()
 	}
 	else
 	{
-		HwPWM0.stop();
+		stop_buzzer();
 	}
-
 	delay(1000);
 }
 void firstDisplay()
@@ -172,19 +181,50 @@ void firstDisplay()
 }
 void buzzer_init()
 {
-	pinMode(BUZZER_CONTROL, OUTPUT);
-	HwPWM0.addPin(BUZZER_CONTROL);
-	//  HwPWM0.setResolution(4); // set max value by 2^bitnum - 1
-	//  HwPWM0.setMaxValue(4000-1);   // set max value = 16000000/pwm_frequency - 1
-	buzzer(4000); //4000Hz
-	HwPWM0.stop();
+  #if defined(_VARIANT_RAK4630_)
+    #define BOARD "RAK4631 "
+    pinMode(BUZZER_CONTROL, OUTPUT);
+    HwPWM0.addPin(BUZZER_CONTROL);
+    //  HwPWM0.setResolution(4); // set max value by 2^bitnum - 1
+    //  HwPWM0.setMaxValue(4000-1);   // set max value = 16000000/pwm_frequency - 1
+    buzzer(4000); //4000Hz
+    HwPWM0.stop();
+  #elif defined(_VARIANT_RAK11300_) 
+    #define BOARD "RAK11300"   
+  //  tone(BUZZER_CONTROL,4000,2000); 
+  #else 
+    #define BOARD "RAK11200 "   
+    ledcSetup(LEDC_CHANNEL_0, LEDC_BASE_FREQ, LEDC_TIMER_13_BIT); // Set channel 0  
+    ledcAttachPin(BUZZER_CONTROL, LEDC_CHANNEL_0);                
+  #endif
+  Serial.println(BOARD); 
 }
 void buzzer(unsigned long freq)
 {
-	unsigned long duty = 0;
-	unsigned long pwm_period = 0;
-	pwm_period = PWM_FOSC / freq - 1;
-	duty = PWM_FOSC / freq / 2;
-	HwPWM0.setMaxValue(pwm_period); // set max value = 16000000/pwm_frequency - 1
-	HwPWM0.writePin(BUZZER_CONTROL, duty, false);
+  #if defined(_VARIANT_RAK4630_)
+    unsigned long duty = 0;
+    unsigned long pwm_period = 0;
+    pwm_period = PWM_FOSC / freq - 1;
+    duty = PWM_FOSC / freq / 2;
+    HwPWM0.setMaxValue(pwm_period); // set max value = 16000000/pwm_frequency - 1
+    HwPWM0.writePin(BUZZER_CONTROL, duty, false);
+  #elif defined(_VARIANT_RAK11300_) 
+    tone(BUZZER_CONTROL,freq,freq/2);
+  #else 
+    // calculate duty, 8191 from 2 ^ 13 - 1
+    uint32_t duty = (8191 / 2);
+    // write duty to LEDC
+    ledcWrite(LEDC_CHANNEL_0, duty);          
+  #endif
+}
+
+void stop_buzzer()
+{
+  #if defined(_VARIANT_RAK4630_)
+    HwPWM0.stop();
+  #elif defined(_VARIANT_RAK11300_) 
+    noTone(BUZZER_CONTROL);
+  #else 
+    ledcWrite(LEDC_CHANNEL_0, 0);   
+  #endif
 }
